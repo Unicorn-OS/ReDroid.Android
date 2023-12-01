@@ -3,14 +3,14 @@ dev="localhost:5555"
 
 adb -s $dev root
 
-sudo adb -s $dev push open_gapps-x86_64-11.0-pico-20220503 /open_gapps-x86_64-11.0-pico-20220503
+sudo adb -s $dev push open_gapps /open_gapps
 
 # Extract
 adb -s $dev shell
 
-mv -r open_gapps-x86_64-11.0-pico-20220503/* /system/
+mv -r open_gapps/* /system/
 
-rmdir open_gapps-x86_64-11.0-pico-20220503
+rmdir open_gapps
 
 exit
 
