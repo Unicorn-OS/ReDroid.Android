@@ -1,6 +1,7 @@
 # ReDroid - Remote-Android
 # Home:
-source: https://github.com/remote-android
+source: https://github.com/remote-android/redroid-doc
+- https://github.com/remote-android
 
 sch: https://www.google.com/search?q=waydroid+in+docker, https://hub.docker.com/r/aind/aind
 
