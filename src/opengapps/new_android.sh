@@ -2,7 +2,12 @@ future_container=gappstest
 container=newandroid
 dev=localhost:5555
 
-remove_competing_port(){
+remove_starting_container(){
+    docker stop $container
+    docker rm --force $container
+}
+
+remove_future_container(){
     docker stop $future_container
     docker rm --force $future_container
 }
@@ -24,7 +29,8 @@ debug(){
 }
 
 main(){
-    remove_competing_port
+    remove_starting_container
+    remove_future_container
     launch
     reset_connection
     debug

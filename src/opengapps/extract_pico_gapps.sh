@@ -1,5 +1,7 @@
-to=open_gapps
 zip=open_gapps-x86-11.0-pico-20220503.zip
+
+to=open_gapps
+backup=$to.tar
 this=`pwd`
 d=$this/$to
 
@@ -114,18 +116,20 @@ all(){
 
 bac(){
   decompress
-  tar -cf open_gapps.tar open_gapps
+  tar -cf $backup $to
 }
 
 restore(){
   clean
-  tar -xf open_gapps.tar
+  tar -xf $backup
 }
 
 
 main(){
   mkdir -p $app $common $priv_app
-  # decompress
+  if [ ! -f $backup ]; then
+    decompress
+  fi
   restore
   all
 }
