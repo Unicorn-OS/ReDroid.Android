@@ -2,13 +2,19 @@ container=newandroid
 newimage=gapps
 newcontainer=gappstest
 
-adb -s $dev shell reboot -p
+remove_old(){
+    docker stop $newcontainer
+    docker rm $newcontainer
+    docker rmi $newimage
+}
 
-sleep 2
+snapshot(){
+    adb -s $dev shell reboot -p
 
-docker commit $container $newimage
+    sleep 2
+    docker stop $container
 
-docker stop $container
-docker rm --force $container
+    docker commit $container $newimage
 
-docker run -itd --privileged -v ~/data11:/data -p 5555:5555 --name $newcontainer $newimage
+    docker rm --force $container
+}
