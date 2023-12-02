@@ -46,38 +46,36 @@ rm_empty(){
 remove_empty_recursive(){
   # https://unix.stackexchange.com/questions/46322/how-can-i-recursively-delete-empty-directories-in-my-home-directory
   find . -type d -empty -print
+  find . -type d -empty -delete
 }
 
-is_app(){
-  rsync -a --remove-source-files app/* $app
-  # mv app/* $app
-  rmdir app
+rsync_merge(){
+  rsync -a --remove-source-files --quiet $1 $2
 }
 
-is_priv_app(){
-  rsync -a --remove-source-files priv-app/* $app
-  # mv priv-app/* $app
-  rmdir priv-app
+app(){
+  # https://unix.stackexchange.com/questions/127712/merging-folders-with-mv
+  rsync_merge app/* $app
+}
+
+priv_app(){
+  rsync_merge "priv-app/*" $app
+}
+
+move_to_common(){
+  rsync_merge "common/*" $common
 }
 
 move_to_app(){
   cd nodpi
   for f in *;do
     if [[ "$f" == "priv-app" ]];then
-      ls
-      is_priv_app
+      priv_app
     else
-      echo not private
-      is_app
+      app
     fi
   done
-  cd ~-
-  echo
-}
-
-move_to_common(){
-  # https://unix.stackexchange.com/questions/127712/merging-folders-with-mv
-  rsync -a --remove-source-files common/* $common
+  cd ..
 }
 
 contains_inner_app(){
@@ -85,33 +83,29 @@ contains_inner_app(){
 
   for f in *;do
     if [[ "$f" == "nodpi" ]];then
-      # pwd
-      # move_to_app $1
-      # pwd
-      # rmdir nodpi
-      echo
+      move_to_app
     else
-      # debug_no_dpi
-      ls
-      pwd
       move_to_common
-      remove_empty_recursive
     fi
   done
-  cd ~-
+  cd ..
 }
 
-extract_to_app(){
-  mkdir -p $app $common
-
-  cd $this/$to/Core
+extract_to_dirs(){
+  cd $1
   for f in */;do
-    # echo $f
     contains_inner_app $f
-    # pwd
-    # rmdir $f
-    # mv $f/nodpi/priv-app/*
+    remove_empty_recursive
   done
+  cd ..
+  rmdir $1
+}
+
+all(){
+  cd $this/$to
+  extract_to_dirs Core
+  extract_to_dirs GApps
+  extract_to_dirs Optional
 }
 
 bac(){
@@ -126,9 +120,10 @@ restore(){
 
 
 main(){
+  mkdir -p $app $common
   # decompress
   restore
-  extract_to_app
+  all
 }
 
 main
