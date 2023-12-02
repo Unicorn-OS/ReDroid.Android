@@ -10,10 +10,17 @@ remove_old(){
     docker rmi $newimage
 }
 
-snapshot(){
+shutdown(){
     adb -s $dev shell reboot -p
+}
 
-    sleep 2
+reboot(){
+    adb -s $dev shell reboot
+}
+
+snapshot(){
+    reboot
+    sleep 3
     docker stop $container
 
     docker commit $container $newimage
