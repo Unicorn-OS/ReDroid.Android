@@ -1,8 +1,12 @@
 to=open_gapps
 zip=open_gapps-x86-11.0-pico-20220503.zip
 this=`pwd`
-app=$this/$to/app
-common=$this/$to/common
+d=$this/$to
+
+# sync Dirs
+app=$d/app
+priv_app=$d/priv-app
+common=$d/common
 
 unzip_archive(){
   unzip -d $to $zip
@@ -59,7 +63,7 @@ app(){
 }
 
 priv_app(){
-  rsync_merge "priv-app/*" $app
+  rsync_merge "priv-app/*" $priv_app
 }
 
 move_to_common(){
@@ -120,7 +124,7 @@ restore(){
 
 
 main(){
-  mkdir -p $app $common
+  mkdir -p $app $common $priv_app
   # decompress
   restore
   all
