@@ -1,4 +1,4 @@
-zip=open_gapps-x86-11.0-pico-20220503.zip
+zip=open_gapps-x86_64-11.0-pico-20220503.zip
 
 to=open_gapps
 backup=$to.tar
