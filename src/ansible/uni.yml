@@ -5,3 +5,4 @@
   roles:
   - ReDroid/deploy
   - ADB
+  - scrcpy
