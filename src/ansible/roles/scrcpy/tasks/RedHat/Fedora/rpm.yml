@@ -1,7 +1,0 @@
----
-- name: Install Scrcpy from repo
-  become: true
-  ansible.builtin.dnf:
-    name:
-      - scrcpy
-    state: latest
