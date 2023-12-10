@@ -7,3 +7,9 @@ https://github.com/remote-android/redroid-doc/issues?q=certified
 
 # Solution:
 - https://github.com/remote-android/redroid-doc/issues/378
+
+```
+adb -s localhost:5555 root
+adb -s localhost:5555 shell 'sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \
+   "select * from main where name = \"android_id\";"'
+```
