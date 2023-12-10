@@ -1,21 +1,17 @@
+- name: Idempotent directory
+  ansible.builtin.file:
+    path: "{{ deploy_log | dirname }}"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+  become: true
+  notify: Idempotent deploy.log
+
+- name: Idempotent deploy.log
+  ansible.builtin.file:
+    path: "{{ deploy_log }}"
+    state: touch
+
+# Run last --------------
 - name: Reboot
-  debug:
-    msg: "Detecting Reboot"
-  notify:
-  - Reboot manually
-  - Exit if localhost
-  - Reboot node
-
-- name: Reboot manually
-  debug:
-    msg: "You must reboot manually, then re-run this playlist! - if localhost"
-  when: ansible_connection == "local"
-
-
-- name: Exit if localhost
-  meta: end_play
-  when: ansible_connection == "local"
-
-- name: Reboot node
-  ansible.builtin.reboot:
-  when: ansible_connection != "local"
+  include_tasks: tasks/fn/reboot.yml
