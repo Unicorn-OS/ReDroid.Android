@@ -1,0 +1,4 @@
+#source: https://github.com/remote-android/redroid-doc/blob/master/deploy/README.md
+
+- name: OS specific
+  include_tasks: '{{ ansible_os_family }}/main.yml'

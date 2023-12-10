@@ -1,0 +1,5 @@
+Fedora_Beta: 39
+
+deploy_log: /opt/redroid/deploy.log
+
+platform: "{{ 'amd64' if ansible_architecture == 'x86_64' }}"

@@ -1,0 +1,34 @@
+---
+# https://github.com/remote-android/redroid-doc/blob/master/deploy/fedora.md
+
+- name: grubby --update-kernel
+  ansible.builtin.shell: grubby --update-kernel ALL --args selinux=0
+  args:
+    creates: "{{ deploy_log }}"
+  become: true
+
+- name: grub2-mkconfig
+  ansible.builtin.shell: grub2-mkconfig > /boot/grub2/grub.cfg
+  args:
+    creates: "{{ deploy_log }}"
+  become: true
+  notify: Reboot
+
+- name: Force Reboot
+  meta: flush_handlers
+
+- name: modprobe nfnetlink
+  community.general.modprobe:
+    name: nfnetlink
+    state: present
+  become: true
+
+- name: Pull Redroid image from docker repo
+  community.docker.docker_image:
+    name: "{{ docker_pull_image }}"
+    source: pull
+    # Select platform for pulling. If not specified, will pull whatever docker prefers.
+    pull:
+      platform: "{{ platform }}"
+    async: 7200
+    poll: 20

@@ -1,0 +1,2 @@
+# images, [Currently supported:](https://github.com/remote-android/redroid-doc?tab=readme-ov-file#overview)
+docker_pull_image: redroid/redroid:14.0.0-latest
