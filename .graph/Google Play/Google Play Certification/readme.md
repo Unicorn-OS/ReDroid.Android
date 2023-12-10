@@ -13,3 +13,8 @@ adb -s localhost:5555 root
 adb -s localhost:5555 shell 'sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \
    "select * from main where name = \"android_id\";"'
 ```
+```
+pasteIn(){
+   url = "https://www.google.com/android/uncertified"
+}
+```
