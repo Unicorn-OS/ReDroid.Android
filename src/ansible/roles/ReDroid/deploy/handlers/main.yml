@@ -1,2 +1,21 @@
 - name: Reboot
+  debug:
+    msg: "Detecting Reboot"
+  notify:
+  - Reboot manually
+  - Exit if localhost
+  - Reboot node
+
+- name: Reboot manually
+  debug:
+    msg: "You must reboot manually, then re-run this playlist! - if localhost"
+  when: ansible_connection == "local"
+
+
+- name: Exit if localhost
+  meta: end_play
+  when: ansible_connection == "local"
+
+- name: Reboot node
   ansible.builtin.reboot:
+  when: ansible_connection != "local"
