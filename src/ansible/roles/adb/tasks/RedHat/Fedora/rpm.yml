@@ -1,0 +1,7 @@
+---
+- name: Install ADB from repo
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - android-tools
+    state: latest
