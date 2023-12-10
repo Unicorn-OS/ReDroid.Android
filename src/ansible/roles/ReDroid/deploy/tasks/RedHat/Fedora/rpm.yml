@@ -31,6 +31,6 @@
     source: pull
     # Select platform for pulling. If not specified, will pull whatever docker prefers.
     pull:
-      platform: "{{ platform }}"
+      platform: "{{ docker_pull_image }}"
   async: 7200
   poll: 20
