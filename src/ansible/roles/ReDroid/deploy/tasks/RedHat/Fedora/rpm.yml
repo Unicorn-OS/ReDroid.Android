@@ -16,13 +16,11 @@
   - Idempotent directory
   - Reboot
 
-- name: Force Reboot
-  meta: flush_handlers
-
 - name: modprobe nfnetlink
   community.general.modprobe:
     name: nfnetlink
     state: present
+    persistent: present
   become: true
 
 - name: Pull Redroid image from docker repo
@@ -34,3 +32,6 @@
       platform: "{{ docker_pull_image }}"
   async: 7200
   poll: 20
+
+- name: Force Reboot
+  meta: flush_handlers
