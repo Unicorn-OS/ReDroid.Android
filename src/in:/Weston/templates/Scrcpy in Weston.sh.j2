@@ -1,7 +1,16 @@
 #    MOD+g
 #        Resize window to 1:1 (pixel-perfect)
-weston --xwayland --width=1280 --height=720
-
 export DISPLAY=:1
+
+android_width=720
+android_height=1280
+
+pad_width=64
+pad_height10
+
+weston_width=(( $android_width + $pad_width ))
+weston_height=(( $android_width + $pad_width ))
+
+weston --xwayland --width=$weston_width --height=$weston_height
 
 scrcpy --rotation=1 -s localhost:5555
