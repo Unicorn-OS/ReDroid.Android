@@ -8,8 +8,8 @@ android_height=1280
 pad_width=64
 pad_height10
 
-weston_width=(( $android_width + $pad_width ))
-weston_height=(( $android_width + $pad_width ))
+weston_width=$(( android_width + pad_width ))
+weston_height=$(( android_width + pad_width ))
 
 weston --xwayland --width=$weston_width --height=$weston_height
 
