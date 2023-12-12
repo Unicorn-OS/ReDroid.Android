@@ -1,5 +1,6 @@
 - name: Reboot node
   ansible.builtin.reboot:
+  become: true
   when: ansible_connection != "local"
 
 - name: Reboot manually
