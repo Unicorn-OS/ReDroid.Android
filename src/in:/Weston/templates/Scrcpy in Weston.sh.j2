@@ -1,0 +1,7 @@
+#    MOD+g
+#        Resize window to 1:1 (pixel-perfect)
+weston --xwayland --width=1280 --height=720
+
+export DISPLAY=1
+
+scrcpy --rotation=1 -s localhost:5555
