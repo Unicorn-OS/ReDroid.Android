@@ -1,4 +1,4 @@
-- hosts: test #localhost #, fedora, ubuntu
+- hosts: localhost #, fedora, ubuntu
   vars:
     ansible_become_password: u
 
