@@ -1,0 +1,7 @@
+---
+- name: Pull Redroid image from docker repo
+  community.docker.docker_image:
+    name: "{{ docker_pull_image }}"
+    source: pull
+  async: 7200
+  poll: 20
