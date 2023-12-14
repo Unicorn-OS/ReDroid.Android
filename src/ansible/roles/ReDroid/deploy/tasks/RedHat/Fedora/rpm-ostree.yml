@@ -23,15 +23,8 @@
     persistent: present
   become: true
 
-- name: Pull Redroid image from docker repo
-  community.docker.docker_image:
-    name: "{{ docker_pull_image }}"
-    source: pull
-    # Select platform for pulling. If not specified, will pull whatever docker prefers.
-    pull:
-      platform: "{{ docker_pull_image }}"
-  async: 7200
-  poll: 20
+- name: Docker image
+  include_tasks: .fn/Docker pull.yml
 
 - name: Force Reboot
   meta: flush_handlers

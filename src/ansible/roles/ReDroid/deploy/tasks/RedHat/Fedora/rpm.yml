@@ -24,7 +24,7 @@
   become: true
 
 - name: Docker image
-  include_tasks: fn/Docker pull.yml
+  include_tasks: .fn/Docker pull.yml
 
 - name: Force Reboot
   meta: flush_handlers
